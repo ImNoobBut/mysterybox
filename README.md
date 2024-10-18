@@ -44,12 +44,11 @@ Before you can run the project, make sure you have the following installed:
    ```bash
    git clone https://github.com/ImNoobBut/mysterybox.git
    cd mysterybox
-``
 
-Install the required dependencies:
-```bash
-mvn clean install
-```
-Run the application:
-```bash
-mvn spring-boot:run
+2. Install the required dependencies:
+   ```bash
+   mvn clean install
+   ```
+3. Run the application:
+   ```bash
+   mvn spring-boot:run
