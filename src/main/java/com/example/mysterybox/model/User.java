@@ -44,4 +44,93 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<CreditTransaction> creditTransactions;  // Track credit changes
+
+    public int getMemberLevel() {
+        return memberLevel;
+    }
+
+    public void setMemberLevel(int memberLevel) {
+        this.memberLevel = memberLevel;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public String getReferralCode() {
+        return referralCode;
+    }
+
+    public void setReferralCode(String referralCode) {
+        this.referralCode = referralCode;
+    }
+
+    public User getReferrer() {
+        return referrer;
+    }
+
+    public void setReferrer(User referrer) {
+        this.referrer = referrer;
+    }
+
+    public double getCredits() {
+        return credits;
+    }
+
+    public void setCredits(double credits) {
+        this.credits = credits;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public List<MysteryPurchase> getMysteryPurchases() {
+        return mysteryPurchases;
+    }
+
+    public void setMysteryPurchases(List<MysteryPurchase> mysteryPurchases) {
+        this.mysteryPurchases = mysteryPurchases;
+    }
+
+    public List<CreditTransaction> getCreditTransactions() {
+        return creditTransactions;
+    }
+
+    public void setCreditTransactions(List<CreditTransaction> creditTransactions) {
+        this.creditTransactions = creditTransactions;
+    }
+
 }

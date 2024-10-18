@@ -6,7 +6,6 @@ import com.example.mysterybox.model.User;
 import com.example.mysterybox.repository.MysteryPurchaseRepository;
 import com.example.mysterybox.repository.TreasureTypeRepository;
 import com.example.mysterybox.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,14 +13,17 @@ import java.util.Optional;
 @Service
 public class PurchaseService {
 
-    @Autowired
-    private MysteryPurchaseRepository mysteryPurchaseRepository;
+    private final MysteryPurchaseRepository mysteryPurchaseRepository;
 
-    @Autowired
-    private TreasureTypeRepository treasureTypeRepository;
+    private final TreasureTypeRepository treasureTypeRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public PurchaseService(MysteryPurchaseRepository mysteryPurchaseRepository, TreasureTypeRepository treasureTypeRepository, UserRepository userRepository) {
+        this.mysteryPurchaseRepository = mysteryPurchaseRepository;
+        this.treasureTypeRepository = treasureTypeRepository;
+        this.userRepository = userRepository;
+    }
 
     public MysteryPurchase purchaseTreasure(String username, int quantity) throws Exception {
         Optional<User> userOptional = userRepository.findByUsername(username);
@@ -30,14 +32,14 @@ public class PurchaseService {
         }
 
         User user = userOptional.get();
-        int price = 100 * quantity;
+        int price = 100 * quantity;  // Assume each treasure costs 100 credits
 
-        // Check user balance
+        // Check if user has enough credits
         if (user.getCredits() < price) {
             throw new Exception("Insufficient credits");
         }
 
-        // Select random treasure
+        // Find a random available treasure
         Optional<TreasureType> treasureTypeOptional = treasureTypeRepository.findAll()
                 .stream()
                 .filter(t -> t.getRemainingQuantity() > 0)

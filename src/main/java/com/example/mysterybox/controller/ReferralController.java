@@ -1,9 +1,11 @@
 package com.example.mysterybox.controller;
 
 import com.example.mysterybox.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
@@ -11,8 +13,11 @@ import java.util.Map;
 @RequestMapping("/api/v1/referral")
 public class ReferralController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public ReferralController(UserService userService) {
+        this.userService = userService;
+    }
 
     // GET /api/v1/referral/validate
     @GetMapping("/validate")

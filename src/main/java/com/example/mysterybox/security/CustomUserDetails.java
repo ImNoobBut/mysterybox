@@ -1,14 +1,18 @@
 package com.example.mysterybox.security;
 
 import com.example.mysterybox.model.User;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 
+@Getter
 public class CustomUserDetails implements UserDetails {
 
-    private User user;
+    private final User user;
 
     public CustomUserDetails(User user) {
         this.user = user;
@@ -16,8 +20,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Return user's roles/authorities if you have them
-        return null; // Implement as needed
+        return Collections.singleton(new SimpleGrantedAuthority("USER"));
     }
 
     @Override
@@ -50,7 +53,4 @@ public class CustomUserDetails implements UserDetails {
         return true; // Implement logic if needed
     }
 
-    public User getUser() {
-        return user;
-    }
 }
