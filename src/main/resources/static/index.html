@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mystery Box Marketplace</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 600px; margin: 20px auto; }
+        h1 { text-align: center; }
+        input { width: 100%; padding: 10px; margin: 5px 0; }
+        button { width: 100%; padding: 10px; }
+        .response { margin-top: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Mystery Box Marketplace</h1>
+
+    <h2>Register User</h2>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <input type="text" id="referralCode" placeholder="My Referral Code (Optional)">
+    <input type="text" id="referrer" placeholder="Referrer (Optional)">
+    <button onclick="registerUser()">Register</button>
+
+    <h2>Login</h2>
+    <input type="email" id="loginEmail" placeholder="Email" required>
+    <input type="password" id="loginPassword" placeholder="Password" required>
+    <button onclick="loginUser()">Login</button>
+
+    <h2>Get Balance</h2>
+    <button onclick="getUserBalance()">Get Balance</button>
+
+    <h2>Validate Referral Code</h2>
+    <input type="text" id="validateReferralCode" placeholder="Referral Code">
+    <button onclick="validateReferralCode()">Validate</button>
+
+    <h2>Purchase Treasure</h2>
+    <input type="number" id="quantity" placeholder="Quantity" required>
+    <button onclick="purchaseTreasure()">Purchase</button>
+
+    <div class="response" id="response"></div>
+</div>
+
+<script>
+    async function registerUser() {
+        const responseDiv = document.getElementById('response');
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const referralCode = document.getElementById('referralCode').value;
+        const referrer = document.getElementById('referrer').value;
+
+        const response = await fetch('/api/v1/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, email, password, referralCode, referrer })
+        });
+        const data = await response.json();
+        responseDiv.innerText = JSON.stringify(data, null, 2);
+    }
+
+    async function loginUser() {
+        const responseDiv = document.getElementById('response');
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        const response = await fetch('/api/v1/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+        const data = await response.json();
+        responseDiv.innerText = JSON.stringify(data, null, 2);
+    }
+
+    async function getUserBalance() {
+        const responseDiv = document.getElementById('response');
+        const response = await fetch('/api/v1/users/balance', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await response.json();
+        responseDiv.innerText = JSON.stringify(data, null, 2);
+    }
+
+    async function validateReferralCode() {
+        const responseDiv = document.getElementById('response');
+        const referralCode = document.getElementById('validateReferralCode').value;
+
+        const response = await fetch(`/api/v1/referral/validate?referralCode=${referralCode}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await response.json();
+        responseDiv.innerText = JSON.stringify(data, null, 2);
+    }
+
+    async function purchaseTreasure() {
+        const responseDiv = document.getElementById('response');
+        const quantity = document.getElementById('quantity').value;
+
+        const response = await fetch('/api/v1/market/purchase', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ quantity })
+        });
+        const data = await response.json();
+        responseDiv.innerText = JSON.stringify(data, null, 2);
+    }
+</script>
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html>
